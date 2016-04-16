@@ -6,7 +6,12 @@ var port     = process.env.PORT || 8080;
 var app     = express();
 var stuff   = [];
 
-function writeNSend(res){
+// set up client files
+app.set('view engine', 'ejs'); 
+app.use(express.static(__dirname + '/public'));     // set the static files location /public/img will be /img for users
+app.use('/users', express.static(__dirname + '/public'));	//use index.css for login logout pages
+
+function write(res){
 		// To write to the system we will use the built in 'fs' library.
 		// In this example we will pass 3 parameters to the writeFile function
 		// Parameter 1 :  output.json - this is what the created filename will be called
@@ -18,9 +23,15 @@ function writeNSend(res){
 
 		});
 
-		// Finally, we'll just send out a message to the browser reminding you that this app does not have a UI.
-		res.send('Check your console!');
+		//send data
+		send(res);
 }
+function send(res){
+		res.render('index.ejs', {
+			data: stuff,
+		}); // load the index.ejs file
+}
+
 
 //updates information and send
 app.get('/update', function(req, res){
@@ -51,7 +62,7 @@ app.get('/update', function(req, res){
 					if(/takeaway/gi.test(body))
 						stuff.push(body);
 					if(!(arr[index+1])){
-						writeNSend(res);
+						write(res);
 					}
 				}//end if(!error)
 			});//end request for data
@@ -64,8 +75,7 @@ app.get('/update', function(req, res){
 
 //simply send information
 app.get('/', function(req, res){
-
-	
+		send(res);
 });
 
 app.listen(port);
