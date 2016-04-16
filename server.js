@@ -10,8 +10,6 @@ var stuff   = require('./public/output.js')();
 var hbs = exphbs.create({
     // Specify helpers which are only registered on this instance.
     helpers: {
-        foo: function () { return 'FOO!'; },
-        bar: function () { return 'BAR!'; }
     }
 });
 
