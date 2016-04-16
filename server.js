@@ -25,7 +25,7 @@ function sendInformation(res){
 app.get('/', function(req, res){
 
 	var getRepos = {
-	  uri: 'https://api.github.com/users/vtange/repos',
+	  uri: 'https://api.github.com/users/vtange/repos?per_page=1000',
 	  headers: {
 		'User-Agent': 'vtange notes app - note collector'
 	  }
