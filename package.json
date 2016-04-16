@@ -11,9 +11,10 @@
     "url": "git+https://github.com/vtange/notes.git"
   },
   "author": "Victor Tang",
-  "dependencies" : {
-    "express"    : "latest",
-    "request"    : "latest",
-    "cheerio"    : "latest"
+  "dependencies": {
+    "cheerio": "latest",
+    "express": "latest",
+    "express-handlebars": "^3.0.0",
+    "request": "latest"
   }
 }

@@ -1,13 +1,24 @@
 var express = require('express');
 var fs = require('fs');
+var exphbs = require('express-handlebars');
 var request = require('request');
 //var cheerio = require('cheerio');
 var port     = process.env.PORT || 8080;
 var app     = express();
 var stuff   = [];
 
+var hbs = exphbs.create({
+    // Specify helpers which are only registered on this instance.
+    helpers: {
+        foo: function () { return 'FOO!'; },
+        bar: function () { return 'BAR!'; }
+    }
+});
+
 // set up client files
-app.set('view engine', 'ejs'); 
+app.engine('handlebars', hbs.engine);
+app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));     // set the static files location /public/img will be /img for users
 app.use('/users', express.static(__dirname + '/public'));	//use index.css for login logout pages
 
@@ -17,7 +28,7 @@ function write(res){
 		// Parameter 1 :  output.json - this is what the created filename will be called
 		// Parameter 2 :  JSON.stringify(json, null, 4) - the data to write, here we do an extra step by calling JSON.stringify to make our JSON easier to read
 		// Parameter 3 :  callback function - a callback function to let us know the status of our function
-		fs.writeFile('output.json', JSON.stringify(stuff, null, 4), function(err){
+		fs.writeFile('public/output.json', JSON.stringify(stuff, null, 4), function(err){
 
 			console.log('File successfully written! - Check your project directory for the output.json file');
 
@@ -27,9 +38,9 @@ function write(res){
 		send(res);
 }
 function send(res){
-		res.render('index.ejs', {
+		res.render('index', {
 			data: stuff,
-		}); // load the index.ejs file
+		}); // load the index.hbs file
 }
 
 
