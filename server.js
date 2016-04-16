@@ -28,7 +28,7 @@ function write(res){
 		// Parameter 1 :  output.json - this is what the created filename will be called
 		// Parameter 2 :  JSON.stringify(json, null, 4) - the data to write, here we do an extra step by calling JSON.stringify to make our JSON easier to read
 		// Parameter 3 :  callback function - a callback function to let us know the status of our function
-		fs.writeFile('public/output.json', JSON.stringify(stuff, null, 4), function(err){
+		fs.writeFile('public/output.json', "exports = module.exports = "+JSON.stringify(stuff, null, 4), function(err){
 
 			console.log('File successfully written! - Check your project directory for the output.json file');
 
@@ -47,6 +47,8 @@ function send(res){
 //updates information and send
 app.get('/update', function(req, res){
 
+	stuff = [];
+	
 	var getRepos = {
 	  uri: 'https://api.github.com/users/vtange/repos?per_page=1000',
 	  headers: {
