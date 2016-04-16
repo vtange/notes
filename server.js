@@ -1,9 +1,10 @@
 var express = require('express');
 var fs = require('fs');
 var request = require('request');
-var cheerio = require('cheerio');
+//var cheerio = require('cheerio');
 var app     = express();
 var stuff   = [];
+
 function sendInformation(res){
 		// To write to the system we will use the built in 'fs' library.
 		// In this example we will pass 3 parameters to the writeFile function
@@ -21,7 +22,7 @@ function sendInformation(res){
 }
 
 
-app.get('/scrape', function(req, res){
+app.get('/', function(req, res){
 
 	var getRepos = {
 	  uri: 'https://api.github.com/users/vtange/repos',
@@ -35,33 +36,25 @@ app.get('/scrape', function(req, res){
 			throw error;
 		}
 		var arr = JSON.parse(response.body);
-		var gotAllRepos = new Array(arr.length);
-		gotAllRepos = gotAllRepos.map(function(item){
-			return false;
-		});
 		arr.forEach(function(repo, index){
-			console.log(repo.name);
 			var getProject = {
 			  uri: 'https://raw.githubusercontent.com/vtange/'+repo.name+'/master/README.md',
 			  headers: {
 				'User-Agent': 'vtange notes app - note collector'
 			  }
 			};
-/*
+
 			request(getProject, function(error, response, body){
 				if(!error){
-					var $ = cheerio.load(body); // enable jQuery-style scraping
-					stuff.push(body);
-					gotAllRepos[index] = true;
-
-					if(gotAllRepos.every(function(item){
-						return item === true;
-					})){
+					//var $ = cheerio.load(body); // enable jQuery-style scraping
+					if(/takeaway/gi.test(body))
+						stuff.push(body);
+					if(!(arr[index+1])){
 						sendInformation(res);
 					}
 				}//end if(!error)
 			});//end request for data
-*/
+
 		});//end forEach repo
 
     });//end request for repos
