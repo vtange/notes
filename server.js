@@ -3,46 +3,68 @@ var fs = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
 var app     = express();
+var stuff   = [];
+function sendInformation(res){
+		// To write to the system we will use the built in 'fs' library.
+		// In this example we will pass 3 parameters to the writeFile function
+		// Parameter 1 :  output.json - this is what the created filename will be called
+		// Parameter 2 :  JSON.stringify(json, null, 4) - the data to write, here we do an extra step by calling JSON.stringify to make our JSON easier to read
+		// Parameter 3 :  callback function - a callback function to let us know the status of our function
+		fs.writeFile('output.json', JSON.stringify(stuff, null, 4), function(err){
+
+			console.log('File successfully written! - Check your project directory for the output.json file');
+
+		});
+
+		// Finally, we'll just send out a message to the browser reminding you that this app does not have a UI.
+		res.send('Check your console!');
+}
+
 
 app.get('/scrape', function(req, res){
 
-    var repos = 'https://api.github.com/users/vtange/repos';
+	var getRepos = {
+	  uri: 'https://api.github.com/users/vtange/repos',
+	  headers: {
+		'User-Agent': 'vtange notes app - note collector'
+	  }
+	};
 
-	request(repos, function(error, response, html){
-		console.log(html);
-		console.log();
-		//response.forEach(function(repo){
-		//	console.log('https://raw.githubusercontent.com/vtange/'+repo.name+'/master/README.md')
-		//});
-    });
-	
-	
-	
-	
-    var url = 'https://raw.githubusercontent.com/vtange/TreeOfSaviorMapdex/master/README.md';
+	request(getRepos, function(error, response, body){
+		if(error){
+			throw error;
+		}
+		var arr = JSON.parse(response.body);
+		var gotAllRepos = new Array(arr.length);
+		gotAllRepos = gotAllRepos.map(function(item){
+			return false;
+		});
+		arr.forEach(function(repo, index){
+			console.log(repo.name);
+			var getProject = {
+			  uri: 'https://raw.githubusercontent.com/vtange/'+repo.name+'/master/README.md',
+			  headers: {
+				'User-Agent': 'vtange notes app - note collector'
+			  }
+			};
+/*
+			request(getProject, function(error, response, body){
+				if(!error){
+					var $ = cheerio.load(body); // enable jQuery-style scraping
+					stuff.push(body);
+					gotAllRepos[index] = true;
 
-    request(url, function(error, response, html){
-		
-        if(!error){
-            var $ = cheerio.load(html);
-            var json = { text : html };
+					if(gotAllRepos.every(function(item){
+						return item === true;
+					})){
+						sendInformation(res);
+					}
+				}//end if(!error)
+			});//end request for data
+*/
+		});//end forEach repo
 
-			// To write to the system we will use the built in 'fs' library.
-			// In this example we will pass 3 parameters to the writeFile function
-			// Parameter 1 :  output.json - this is what the created filename will be called
-			// Parameter 2 :  JSON.stringify(json, null, 4) - the data to write, here we do an extra step by calling JSON.stringify to make our JSON easier to read
-			// Parameter 3 :  callback function - a callback function to let us know the status of our function
-			fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
-
-				console.log('File successfully written! - Check your project directory for the output.json file');
-
-			});
-
-			// Finally, we'll just send out a message to the browser reminding you that this app does not have a UI.
-			res.send('Check your console!');
-        }//end if(!error)
-
-    });//end request
+    });//end request for repos
 	
 });
 
