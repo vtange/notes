@@ -2,10 +2,11 @@ var express = require('express');
 var fs = require('fs');
 var request = require('request');
 //var cheerio = require('cheerio');
+var port     = process.env.PORT || 8080;
 var app     = express();
 var stuff   = [];
 
-function sendInformation(res){
+function writeNSend(res){
 		// To write to the system we will use the built in 'fs' library.
 		// In this example we will pass 3 parameters to the writeFile function
 		// Parameter 1 :  output.json - this is what the created filename will be called
@@ -21,8 +22,8 @@ function sendInformation(res){
 		res.send('Check your console!');
 }
 
-
-app.get('/', function(req, res){
+//updates information and send
+app.get('/update', function(req, res){
 
 	var getRepos = {
 	  uri: 'https://api.github.com/users/vtange/repos?per_page=1000',
@@ -50,7 +51,7 @@ app.get('/', function(req, res){
 					if(/takeaway/gi.test(body))
 						stuff.push(body);
 					if(!(arr[index+1])){
-						sendInformation(res);
+						writeNSend(res);
 					}
 				}//end if(!error)
 			});//end request for data
@@ -61,8 +62,14 @@ app.get('/', function(req, res){
 	
 });
 
-app.listen('8081');
+//simply send information
+app.get('/', function(req, res){
 
-console.log('Magic happens on port 8081');
+	
+});
+
+app.listen(port);
+
+console.log('Magic happens on port '+port);
 
 exports = module.exports = app;
