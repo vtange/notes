@@ -5,7 +5,7 @@ var request = require('request');
 //var cheerio = require('cheerio');
 var port     = process.env.PORT || 8080;
 var app     = express();
-var stuff   = [];
+var stuff   = require('./public/output.js')();
 
 var hbs = exphbs.create({
     // Specify helpers which are only registered on this instance.
@@ -28,7 +28,7 @@ function write(res){
 		// Parameter 1 :  output.json - this is what the created filename will be called
 		// Parameter 2 :  JSON.stringify(json, null, 4) - the data to write, here we do an extra step by calling JSON.stringify to make our JSON easier to read
 		// Parameter 3 :  callback function - a callback function to let us know the status of our function
-		fs.writeFile('public/output.json', "exports = module.exports = "+JSON.stringify(stuff, null, 4), function(err){
+		fs.writeFile('public/output.js', "exports = module.exports = function(){return "+JSON.stringify(stuff, null, 4)+"}", function(err){
 
 			console.log('File successfully written! - Check your project directory for the output.json file');
 
@@ -46,7 +46,7 @@ function send(res){
 
 //updates information and send
 app.get('/update', function(req, res){
-
+	//reset to blank data
 	stuff = [];
 	
 	var getRepos = {
@@ -72,6 +72,7 @@ app.get('/update', function(req, res){
 			request(getProject, function(error, response, body){
 				if(!error){
 					//var $ = cheerio.load(body); // enable jQuery-style scraping
+					//push until you run out of stuff to push
 					if(/takeaway/gi.test(body))
 						stuff.push(body);
 					if(!(arr[index+1])){
@@ -88,6 +89,9 @@ app.get('/update', function(req, res){
 
 //simply send information
 app.get('/', function(req, res){
+		//read and get file data
+		stuff   = require('./public/output.js')();
+		//send
 		send(res);
 });
 
