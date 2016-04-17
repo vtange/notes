@@ -6,6 +6,7 @@ var request = require('request');
 var port     = process.env.PORT || 8080;
 var app     = express();
 var stuff   = require('./public/output.js')();
+var auth	= require('./config/auth.js');
 var showdown  = require('showdown'),
     converter = new showdown.Converter()
 
@@ -49,8 +50,10 @@ function send(res){
 //updates information and send
 app.get('/update', function(req, res){
 	
+	//formData == auth (new application at github/settings > OAuth applications)
 	var getRepos = {
 	  uri: 'https://api.github.com/users/vtange/repos?per_page=1000',
+	  formData: auth,
 	  headers: {
 		'User-Agent': 'vtange notes app - note collector'
 	  }
