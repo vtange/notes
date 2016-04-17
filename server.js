@@ -6,17 +6,21 @@ var request = require('request');
 var port     = process.env.PORT || 8080;
 var app     = express();
 var stuff   = require('./public/output.js')();
+var marked = require('marked');
 
 var hbs = exphbs.create({
     // Specify helpers which are only registered on this instance.
     helpers: {
+		marked: function(text){
+			return new hbs.handlebars.SafeString(marked(text));
+		}
     }
 });
 
 // set up client files
-app.engine('handlebars', hbs.engine);
 app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', 'hbs');
+app.engine('hbs', hbs.engine);
 app.use(express.static(__dirname + '/public'));     // set the static files location /public/img will be /img for users
 app.use('/users', express.static(__dirname + '/public'));	//use index.css for login logout pages
 
