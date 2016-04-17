@@ -15,7 +15,6 @@
     "cheerio": "latest",
     "express": "latest",
     "express-handlebars": "^3.0.0",
-    "marked": "^0.3.5",
     "request": "latest",
     "showdown": "^1.3.0"
   }

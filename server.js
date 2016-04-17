@@ -6,7 +6,6 @@ var request = require('request');
 var port     = process.env.PORT || 8080;
 var app     = express();
 var stuff   = require('./public/output.js')();
-var marked = require('marked');
 var showdown  = require('showdown'),
     converter = new showdown.Converter()
 
