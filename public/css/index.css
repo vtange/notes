@@ -22,7 +22,7 @@ body:after{
   width: 100%; 
   height: 100%;
   z-index: -11;
-  background-color:rgba(0,0,0,0.0);
+  background-color:rgba(0,50,0,0.25);
 }
 body, .btn, #header > #group1 > a{
 	color: #555;
@@ -41,6 +41,14 @@ pre, code{
 	padding:0.2em;
 	border-radius: 5px;
 }
-pre{
+pre, .markdown-body{
 	padding: 1.5rem;
+}
+.octicon-link{
+	display: none;
+}
+.markdown-body{
+	background-color: #fff;
+	border-radius: 10px;
+	margin-bottom: 5rem;
 }
