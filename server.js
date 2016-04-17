@@ -52,7 +52,7 @@ app.get('/update', function(req, res){
 	
 	//formData == auth (new application at github/settings > OAuth applications)
 	var getRepos = {
-	  uri: 'https://api.github.com/users/vtange/repos?per_page=1000',
+	  uri: 'https://api.github.com/users/vtange/repos?per_page=99',
 	  formData: auth,
 	  headers: {
 		'User-Agent': 'vtange notes app - note collector'
@@ -70,6 +70,7 @@ app.get('/update', function(req, res){
 			arr.forEach(function(repo, index){
 				var getProject = {
 				  uri: 'https://api.github.com/repos/vtange/'+repo.name+'/readme',
+				  formData: auth,
 				  headers: {
 					'User-Agent': 'vtange notes app - note collector',
 					'Accept': 'application/vnd.github.html'
