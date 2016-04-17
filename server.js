@@ -22,7 +22,6 @@ app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', 'hbs');
 app.engine('hbs', hbs.engine);
 app.use(express.static(__dirname + '/public'));     // set the static files location /public/img will be /img for users
-app.use('/users', express.static(__dirname + '/public'));	//use index.css for login logout pages
 
 function write(res){
 		// To write to the system we will use the built in 'fs' library.
