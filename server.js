@@ -7,12 +7,14 @@ var port     = process.env.PORT || 8080;
 var app     = express();
 var stuff   = require('./public/output.js')();
 var marked = require('marked');
+var showdown  = require('showdown'),
+    converter = new showdown.Converter()
 
 var hbs = exphbs.create({
     // Specify helpers which are only registered on this instance.
     helpers: {
 		marked: function(text){
-			return new hbs.handlebars.SafeString(marked(text));
+			return new hbs.handlebars.SafeString(converter.makeHtml(text));
 		}
     }
 });

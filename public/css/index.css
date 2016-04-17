@@ -35,9 +35,12 @@ body, .btn, #header > #group1 > a{
 }
 /* BASICS ^ */
 /* RESET */
-pre{
+pre, code{
 	background-color: #444;
 	color:aquamarine;
-	padding: 2.5rem;
-	border-radius: 10px;
+	padding:0.2em;
+	border-radius: 5px;
+}
+pre{
+	padding: 1.5rem;
 }
