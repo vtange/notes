@@ -20,9 +20,9 @@ var hbs = exphbs.create({
 });
 
 // set up client files
-app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
-app.set('view engine', 'hbs');
-app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');												//use handlebars
+app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));		//'hbs' engine == exphbs, whose layoutpage is 'main', extension is 'hbs'
+app.engine('hbs', hbs.engine);												//append helpers
 app.use(express.static(__dirname + '/public'));     // set the static files location /public/img will be /img for users
 
 function write(res){
