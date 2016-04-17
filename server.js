@@ -69,9 +69,10 @@ app.get('/update', function(req, res){
 			stuff = [];
 			arr.forEach(function(repo, index){
 				var getProject = {
-				  uri: 'https://raw.githubusercontent.com/vtange/'+repo.name+'/master/README.md',
+				  uri: 'https://api.github.com/repos/vtange/'+repo.name+'/readme',
 				  headers: {
-					'User-Agent': 'vtange notes app - note collector'
+					'User-Agent': 'vtange notes app - note collector',
+					'Accept': 'application/vnd.github.html'
 				  }
 				};
 
