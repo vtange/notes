@@ -48,8 +48,6 @@ function send(res){
 
 //updates information and send
 app.get('/update', function(req, res){
-	//reset to blank data
-	stuff = [];
 	
 	var getRepos = {
 	  uri: 'https://api.github.com/users/vtange/repos?per_page=1000',
@@ -63,28 +61,35 @@ app.get('/update', function(req, res){
 			throw error;
 		}
 		var arr = JSON.parse(response.body);
-		arr.forEach(function(repo, index){
-			var getProject = {
-			  uri: 'https://raw.githubusercontent.com/vtange/'+repo.name+'/master/README.md',
-			  headers: {
-				'User-Agent': 'vtange notes app - note collector'
-			  }
-			};
+		if(arr.forEach){
+			//reset to blank data
+			stuff = [];
+			arr.forEach(function(repo, index){
+				var getProject = {
+				  uri: 'https://raw.githubusercontent.com/vtange/'+repo.name+'/master/README.md',
+				  headers: {
+					'User-Agent': 'vtange notes app - note collector'
+				  }
+				};
 
-			request(getProject, function(error, response, body){
-				if(!error){
-					//var $ = cheerio.load(body); // enable jQuery-style scraping
-					//push until you run out of stuff to push
-					if(/takeaway/gi.test(body))
-						stuff.push(body);
-					if(!(arr[index+1])){
-						write(res);
-					}
-				}//end if(!error)
-			});//end request for data
+				request(getProject, function(error, response, body){
+					if(!error){
+						//var $ = cheerio.load(body); // enable jQuery-style scraping
+						//push until you run out of stuff to push
+						if(/takeaway/gi.test(body))
+							stuff.push(body);
+						if(!(arr[index+1])){
+							write(res);
+						}
+					}//end if(!error)
+				});//end request for data
 
-		});//end forEach repo
-
+			});//end forEach repo
+		}
+		else{
+			console.log("error getting Github data, might be over API limit.");
+			send(res);
+		}
     });//end request for repos
 	
 });
