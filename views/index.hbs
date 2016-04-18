@@ -1,5 +1,5 @@
 <h3>Hidden</h3>
-<div id="hidden-projects">
+<div class="projects-list">
 	{{#each data}}
 		{{#if this.hidden}}
 			<form action="/transfer" method="post">
@@ -9,6 +9,17 @@
 	{{/each}}
 </div>
 
+<hr><!------------------------------->
+<h3>Visible</h3>
+<div class="projects-list">
+	{{#each data}}
+		{{#unless this.hidden}}
+			<form action="/transfer" method="post">
+				<button class="transfer-btn" name="repo" value="{{this.title}}"><h4>{{this.title}}</h4></button>
+			</form>
+		{{/unless}}
+	{{/each}}
+</div>
 <hr><!------------------------------->
 
 <div id="projects">

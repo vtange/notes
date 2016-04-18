@@ -56,7 +56,7 @@ pre, .markdown-body {
 	color: #333;
 	border:0;
 }
-#hidden-projects{
+.projects-list{
 	display: flex;
 	flex-wrap: wrap;
 }
