@@ -6,7 +6,7 @@ var fs = require('fs');
 var port     = process.env.PORT || 8080;
 var app     = express();
 //var cheerio = require('cheerio');
-var stuff   = require('./public/output.js');
+var stuff   = require('./public/output.js')();
 var auth	= require('./config/auth.js');
 var showdown  = require('showdown'),
     converter = new showdown.Converter()
@@ -65,7 +65,11 @@ app.post('/update', function(req, res){
 				if(!error){
 					//var $ = cheerio.load(body); // enable jQuery-style scraping
 					//push until you run out of stuff to push
-					stuff.push(body);
+					var obj = {
+						title:req.body.repo,
+						html:body
+					}
+					stuff.push(obj);
 					write(res);
 				}//end if(!error)
 			});//end request for data
