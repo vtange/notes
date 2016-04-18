@@ -3,6 +3,7 @@ var exphbs = require('express-handlebars');
 var bodyParser   = require('body-parser');
 var request = require('request');
 var fs = require('fs');
+var q = require('q');
 var port     = process.env.PORT || 8080;
 var app     = express();
 //var cheerio = require('cheerio');
@@ -34,7 +35,7 @@ Array.prototype.getFirstIndexThat = function(test) {
     for(var i = 0; i < this.length; i++)
     {
         if (test(this[i])){
-			return this[i];
+			return i;
 		}
     }
 	return null;
@@ -61,48 +62,50 @@ function send(res){
 			layout: 'main.hbs'
 		}); // load the index.hbs file
 }
-//updates information and send
-app.post('/update', function(req, res){
+//gets readme info
+function getREADME(repo_name, promise){
 		var getProject = {
-		  uri: 'https://api.github.com/repos/vtange/'+req.body.repo+'/readme',
+		  uri: 'https://api.github.com/repos/vtange/'+repo_name+'/readme',
 		  formData: auth,
 		  headers: {
 			'User-Agent': 'vtange notes app - note collector',
 			'Accept': 'application/vnd.github.html'
 		  }
 		};
-		if(req.body.repo){
+		if(repo_name){
 			request(getProject, function(error, response, body){
 				if(!error){
-					var obj = {
-						title:req.body.repo,
-						hidden:false,
-						html:body
-					}
-					stuff.push(obj);
-					write(res);
+					promise.resolve(body);
 				}//end if(!error)
+				else{
+					promise.reject(null);
+				}
 			});//end request for data
 		}
-	else{
-		throw 'req.body.repo is falsey';
-	}
-
-});
+		else{
+			throw 'req.body.repo is falsey';
+		}
+}
 
 //updates information and send
-app.post('/hide', function(req, res){
+app.post('/transfer', function(req, res){
 	if(req.body.repo){
-		var obj = stuff.getFirstIndexThat(function(repo){
-			return repo.title = req.body.repo;
+		var index = stuff.getFirstIndexThat(function(repo){
+			return repo.title === req.body.repo;
 		});
-		if(obj.hidden){
-			obj.hidden = false;
+		if(!stuff[index].html){
+			var gotReadme = q.defer();
+			getREADME(req.body.repo, gotReadme);
+			gotReadme.promise.then(function(html){
+				stuff[index].html = html;
+				stuff[index].hidden = false? true: false;
+				write(res);
+			});
 		}
 		else{
-			obj.hidden = true;
+			stuff[index].hidden = false? true: false;
+			write(res);
 		}
-		write(res);
 	}
 });
 app.get("/auto", function(req, res){

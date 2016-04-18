@@ -38,59 +38,34 @@ body:after{
 }
 /* BASICS ^ */
 /* RESET */
+.octicon-link{
+	display: none;
+}
 pre, code{
 	background-color: #444;
 	color:aquamarine;
 	padding:0.2em;
 	border-radius: 5px;
 }
-pre, .markdown-body, .repo-title{
+pre, .markdown-body {
 	padding: 1.5rem;
-}
-.octicon-link{
-	display: none;
-}
-.markdown-body, .repo-title{
-  	background-color:rgba(255,255,255,0.8);
-	color: #333;
 	margin-bottom: 1rem;
 }
-.repo-title{
-	position: relative;
+.markdown-body, .transfer-btn{
+  	background:rgba(255,255,255,0.8);
+	color: #333;
+	border:0;
+}
+#hidden-projects{
 	display: flex;
-	flex-direction: row;
-	width:30%;
+	flex-wrap: wrap;
 }
-.repo-title > div{
-	position: absolute;
-	right:0;
-	top:0;
-	height:100%;
+.transfer-btn{
+	display: inline-block;
+	margin:5px;
 }
-.repo-title form{
-	height:50%;
-	min-width: 50px;
-}
-.repo-title button{
-	font-weight: bolder;
-	border-radius: 0;
-	padding: 0;
-	height:100%;
-	width:100%;
-}
-.update-btn{
-	color:darkgreen;
-    border: 3px solid darkgreen;
-}
-.update-btn:hover{
+.transfer-btn:hover{
 	background-color:#dfd;
-}
-.hide-btn{
-	color:darkred;
-    border: 3px solid darkred;
-}
-.hide-btn:hover{
-	background-color:#fdd;
 }
 /* FORM */
 .searchr {
@@ -104,13 +79,12 @@ pre, .markdown-body, .repo-title{
   color:papayawhip
 }
 button {
-    padding: 10px;
-    border: 3px solid limegreen;
-    border-radius:25px;
-    background-color: transparent;
-    color:papayawhip;
 	cursor: pointer;
 }
 button:active {
-    transform:scale(0.97);
+    transform:scale(0.96);
 }
+button:hover {
+   	box-shadow: 0px 0px 5px rgba(200,255,200,0.55);
+}
+

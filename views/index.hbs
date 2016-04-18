@@ -1,17 +1,23 @@
+<h3>Hidden</h3>
+<div id="hidden-projects">
+	{{#each data}}
+		{{#if this.hidden}}
+			<form action="/transfer" method="post">
+				<button class="transfer-btn" name="repo" value="{{this.title}}"><h4>{{this.title}}</h4></button>
+			</form>
+		{{/if}}
+	{{/each}}
+</div>
+
+<hr><!------------------------------->
+
 <div id="projects">
 	{{#each data}}
 		{{#unless this.hidden}}
 				{{#unless this.html}}
-					<div class="repo-title">
-						<b>{{{ this.title }}}</b>
-						<div class="vert-list">
-							<form action="/update" method="post">
-								<button class="update-btn" name="repo" value="{{this.title}}">+</button>
-							</form>
-							<form action="/hide" method="post">
-								<button class="hide-btn" name="repo" value="{{this.title}}">-</button>
-							</form>
-						</div>
+					<div class="markdown-body">
+					<b>{{{ this.title }}}</b>
+						<p>- no README.md found</p>
 					</div>
 				{{else}}
 					{{{ this.html }}}
@@ -19,3 +25,9 @@
 		{{/unless}}
 	{{/each}}
 </div>
+<!--
+							<form action="/update" method="post">
+								<button class="update-btn" name="repo" value="{{this.title}}">+</button>
+							</form>
+
+-->
