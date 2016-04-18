@@ -86,7 +86,29 @@ function getREADME(repo_name, promise){
 			throw 'req.body.repo is falsey';
 		}
 }
-
+//add information and send
+app.post('/add', function(req, res){
+	if(req.body.repo){
+		var index = stuff.getFirstIndexThat(function(repo){
+			return repo.title === req.body.repo;
+		});
+		if(index){
+			send(res);
+		}
+		else{
+			var gotReadme = q.defer();
+			getREADME(req.body.repo, gotReadme);
+			gotReadme.promise.then(function(html){
+				var obj = {
+					title:req.body.repo,
+					hidden:false,
+					html:html
+				}
+				stuff.push(obj);
+			});
+		}
+	}
+});
 //updates information and send
 app.post('/transfer', function(req, res){
 	if(req.body.repo){
