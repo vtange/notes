@@ -86,7 +86,7 @@ function getREADME(repo_name, promise){
 			throw 'req.body.repo is falsey';
 		}
 }
-//add information and send
+//add new repo
 app.post('/add', function(req, res){
 	if(req.body.repo){
 		var index = stuff.getFirstIndexThat(function(repo){
@@ -109,7 +109,7 @@ app.post('/add', function(req, res){
 		}
 	}
 });
-//updates information and send
+//show / hide one
 app.post('/transfer', function(req, res){
 	if(req.body.repo){
 		var index = stuff.getFirstIndexThat(function(repo){
@@ -130,6 +130,15 @@ app.post('/transfer', function(req, res){
 		}
 	}
 });
+
+//hide all button
+
+//show all projects (with AngularJS)?
+
+//auto README updater
+
+
+// try auto-finding new repos
 app.get("/auto", function(req, res){
 	//formData == auth (new application at github/settings > OAuth applications)
 	var getRepos = {
@@ -159,6 +168,9 @@ app.get("/auto", function(req, res){
 	});//end request for data
 
 });
+
+
+
 
 //simply send information
 app.get('/', function(req, res){
