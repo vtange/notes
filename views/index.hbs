@@ -20,7 +20,12 @@
 						<p>- no README.md found</p>
 					</div>
 				{{else}}
+				<div class="project">
+					<form action="/transfer" method="post">
+						<button class="boxclose" name="repo" value="{{this.title}}"></button>
+					</form>
 					{{{ this.html }}}
+				</div>
 				{{/unless}}
 		{{/unless}}
 	{{/each}}

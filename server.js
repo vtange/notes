@@ -98,12 +98,12 @@ app.post('/transfer', function(req, res){
 			getREADME(req.body.repo, gotReadme);
 			gotReadme.promise.then(function(html){
 				stuff[index].html = html;
-				stuff[index].hidden = false? true: false;
+				stuff[index].hidden = stuff[index].hidden === false? true: false;
 				write(res);
 			});
 		}
 		else{
-			stuff[index].hidden = false? true: false;
+			stuff[index].hidden = stuff[index].hidden === false? true: false;
 			write(res);
 		}
 	}
