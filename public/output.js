@@ -1,6 +1,224 @@
 exports = module.exports = function(){return [
     {
-        "title": "arch-design",
-        "html": "<div class=\"announce instapaper_body md\" data-path=\"README.md\" id=\"readme\"><article class=\"markdown-body entry-content\" itemprop=\"text\"><h1><a id=\"user-content-arch-design\" class=\"anchor\" href=\"#arch-design\" aria-hidden=\"true\"><svg aria-hidden=\"true\" class=\"octicon octicon-link\" height=\"16\" version=\"1.1\" viewBox=\"0 0 16 16\" width=\"16\"><path d=\"M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z\"></path></svg></a>arch-design</h1>\n\n<p>showcase for architecture projects <a href=\"https://arch-design.herokuapp.com/\">https://arch-design.herokuapp.com/</a></p>\n\n<h1><a id=\"user-content-takeaways\" class=\"anchor\" href=\"#takeaways\" aria-hidden=\"true\"><svg aria-hidden=\"true\" class=\"octicon octicon-link\" height=\"16\" version=\"1.1\" viewBox=\"0 0 16 16\" width=\"16\"><path d=\"M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z\"></path></svg></a>Takeaways</h1>\n\n<p>[roll-thunder]</p>\n\n<ul>\n<li><p>Vanilla JS loading screen</p>\n\n<pre><code>  // Disable animations/transitions and keep a is-loading circle until everything's loaded.\n      $body.classList.add('is-loading');\n\n      window.addEventListener('load', function() {\n          window.setTimeout(function() {\n              $body.classList.remove('is-loading');\n          }, 100);\n      });\n\n</code></pre></li>\n<li><p>using CSS transitions to animate:</p>\n\n<pre><code>  el.style.opacity = 0; //no need for timer, use:\n\n      -moz-transition: all 0.25s ease-in-out;\n      -webkit-transition: all 0.25s ease-in-out;\n      -ms-transition: all 0.25s ease-in-out;\n      transition: all 0.25s ease-in-out;\n</code></pre></li>\n<li><p>Vanilla JS 'prependChild'</p>\n\n<pre><code>                  $wrapper.appendChild($bg);\n                $body.insertBefore($wrapper, $body.firstChild);  //works like prepend\n</code></pre></li>\n<li><p>Vanilla JS Mousewheel events and CSS Transforms</p>\n\n<pre><code>if (document.body.addEventListener) {\n  // IE9, Chrome, Safari, Opera\n  document.body.addEventListener(\"mousewheel\", MouseWheelHandler, false);\n  // Firefox\n  document.body.addEventListener(\"DOMMouseScroll\", MouseWheelHandler, false);\n}\nfunction MouseWheelHandler(e, delta) {\n\n  // cross-browser wheel delta\n  var e = window.event || e; // old IE support\n  var delta = 0;\n  if (e.wheelDelta) {\n      delta = e.wheelDelta/120; \n  } else if (e.detail) {\n      delta = -e.detail/3;\n  }\n  if (delta)\n      handle(delta);\n      if (e.preventDefault)\n              e.preventDefault();\n      e.returnValue = false;\n\n}\n\nfunction handle(delta) {\nif (delta &gt; 0){\n        miscDivPosition = 0;\n}\nelse{\n        miscDivPosition = -150;\n}\nmisc.style.webkitTransform = 'translateY('+miscDivPosition+'%)'; \nmisc.style.mozTransform    = 'translateY('+miscDivPosition+'%)'; \nmisc.style.transform       = 'translateY('+miscDivPosition+'%)'; \n}\n</code></pre></li>\n</ul>\n\n<p>[sf-village]</p>\n\n<ul>\n<li><p>Chaining animations via JQuery (Logo, logo scale, and show bg)</p>\n\n<pre><code>      $(\"#logo\").animate({opacity: 1}).delay(2000).promise().always(function(){\n          $(\"#logo\").animate({top: 0, width: '200px', height: '100px'}).delay(200).promise().always(function(){\n              $(\"#white-cover\").animate({opacity: 0})\n          })\n      })\n</code></pre>\n\n<p>[sf-res]</p></li>\n</ul>\n\n<ul>\n<li><p>A \"Close everything else\" Animation</p>\n\n<pre><code>  $menu_condense: function(menu_item){\n          //slide non-selected\n          _.menuThumbs.filter(function(item){\n              return item !== _.menuThumbs[_.menuOptions.indexOf(menu_item)];\n          }).forEach(function(element){\n              $(element).animate({ opacity: 0 }).promise().always(function(){\n                  //after fade thumbnails out, slide parent up\n                  $(element).parent().slideUp('fast');\n              });;\n          })\n  }\n</code></pre></li>\n</ul>\n</article></div>"
+        "title": "albumland"
+    },
+    {
+        "title": "Algos"
+    },
+    {
+        "title": "arch-design"
+    },
+    {
+        "title": "basic-login-bar"
+    },
+    {
+        "title": "basic-login-bar-spa"
+    },
+    {
+        "title": "Boilerplates"
+    },
+    {
+        "title": "bookmon"
+    },
+    {
+        "title": "bootstrap-map-js"
+    },
+    {
+        "title": "brackets-bootstrap3-snippets"
+    },
+    {
+        "title": "calculator"
+    },
+    {
+        "title": "cartodb-pluto"
+    },
+    {
+        "title": "clementinejs-fcc"
+    },
+    {
+        "title": "CodeRefresh"
+    },
+    {
+        "title": "crelly-slider"
+    },
+    {
+        "title": "dragDrop"
+    },
+    {
+        "title": "EnglishTranslation"
+    },
+    {
+        "title": "express-handlebars"
+    },
+    {
+        "title": "filescanner"
+    },
+    {
+        "title": "firstmap"
+    },
+    {
+        "title": "firstmocha"
+    },
+    {
+        "title": "flux-angular"
+    },
+    {
+        "title": "goojs"
+    },
+    {
+        "title": "hackathon-starter"
+    },
+    {
+        "title": "headerparser"
+    },
+    {
+        "title": "httpGet"
+    },
+    {
+        "title": "ign"
+    },
+    {
+        "title": "imgsearcher"
+    },
+    {
+        "title": "iomrascalai"
+    },
+    {
+        "title": "javascript-koans"
+    },
+    {
+        "title": "js-expression-eval"
+    },
+    {
+        "title": "js_designpatterns"
+    },
+    {
+        "title": "LandingPage"
+    },
+    {
+        "title": "leaflet.workspace"
+    },
+    {
+        "title": "loginV1"
+    },
+    {
+        "title": "loginV2"
+    },
+    {
+        "title": "loginV3"
+    },
+    {
+        "title": "loginV4"
+    },
+    {
+        "title": "masteringnode"
+    },
+    {
+        "title": "MEAN-basic"
+    },
+    {
+        "title": "multifxvst"
+    },
+    {
+        "title": "news-gallery"
+    },
+    {
+        "title": "nightlifemap"
+    },
+    {
+        "title": "notes"
+    },
+    {
+        "title": "nrg.js"
+    },
+    {
+        "title": "palace"
+    },
+    {
+        "title": "playing-cards"
+    },
+    {
+        "title": "polland"
+    },
+    {
+        "title": "pomodoro"
+    },
+    {
+        "title": "Portfolio"
+    },
+    {
+        "title": "Portfolio2"
+    },
+    {
+        "title": "Portfolio3"
+    },
+    {
+        "title": "react-first"
+    },
+    {
+        "title": "react-shopcart"
+    },
+    {
+        "title": "react-way-getting-started"
+    },
+    {
+        "title": "really-basic-login-bar"
+    },
+    {
+        "title": "rewrite-underscore-library"
+    },
+    {
+        "title": "shapesmith.next"
+    },
+    {
+        "title": "showcase-maps"
+    },
+    {
+        "title": "simon"
+    },
+    {
+        "title": "stockcandler"
+    },
+    {
+        "title": "test-first-ruby"
+    },
+    {
+        "title": "tictactoe"
+    },
+    {
+        "title": "timestamper"
+    },
+    {
+        "title": "TreeOfSaviorFormatter"
+    },
+    {
+        "title": "TreeOfSaviorMapdex"
+    },
+    {
+        "title": "turf"
+    },
+    {
+        "title": "twitch"
+    },
+    {
+        "title": "txtUpload"
+    },
+    {
+        "title": "urlshortener"
+    },
+    {
+        "title": "vst-io"
+    },
+    {
+        "title": "waifu2x"
+    },
+    {
+        "title": "weather"
+    },
+    {
+        "title": "wikisearch"
+    },
+    {
+        "title": "wintersmith-practice"
     }
 ]}

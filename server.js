@@ -63,8 +63,6 @@ app.post('/update', function(req, res){
 		if(req.body.repo){
 			request(getProject, function(error, response, body){
 				if(!error){
-					//var $ = cheerio.load(body); // enable jQuery-style scraping
-					//push until you run out of stuff to push
 					var obj = {
 						title:req.body.repo,
 						html:body
@@ -77,6 +75,32 @@ app.post('/update', function(req, res){
 	else{
 		throw 'req.body.repo is falsey';
 	}
+
+});
+
+app.get("/reset", function(req, res){
+	//formData == auth (new application at github/settings > OAuth applications)
+	var getRepos = {
+	  uri: 'https://api.github.com/users/vtange/repos?per_page=99',
+	  formData: auth,
+	  headers: {
+		'User-Agent': 'vtange notes app - note collector'
+	  }
+	};
+	request(getRepos, function(error, response, body){
+		if(!error){
+			stuff = [];
+			var arr = JSON.parse(body);
+			arr.forEach(function(repo,index){
+				var obj = {
+					title:repo.name
+				}
+				stuff.push(obj);
+				if(!arr[index+1])
+					write(res);
+			});
+		}//end if(!error)
+	});//end request for data
 
 });
 

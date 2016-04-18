@@ -1,7 +1,11 @@
 <div id="projects">
 	{{#each data}}
-            <div>
+            {{#unless this.html}}
+				<div>
+					{{{ this.title }}}
+				</div>
+            {{else}}
 				{{{ this.html }}}
-            </div>
+            {{/unless}}
 	{{/each}}
 </div>
