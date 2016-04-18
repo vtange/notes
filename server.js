@@ -105,7 +105,7 @@ app.post('/hide', function(req, res){
 		write(res);
 	}
 });
-app.get("/reset", function(req, res){
+app.get("/auto", function(req, res){
 	//formData == auth (new application at github/settings > OAuth applications)
 	var getRepos = {
 	  uri: 'https://api.github.com/users/vtange/repos?per_page=99',
@@ -116,15 +116,18 @@ app.get("/reset", function(req, res){
 	};
 	request(getRepos, function(error, response, body){
 		if(!error){
-			stuff = [];
 			var arr = JSON.parse(body);
 			arr.forEach(function(repo,index){
-				var obj = {
-					title:repo.name,
-					hidden:false
+				if(stuff.every(function(existing_repo){
+					return existing_repo.name !== repo.name;
+				})){
+					var obj = {
+						title:repo.name,
+						hidden:false
+					}
+					stuff.push(obj);
 				}
-				stuff.push(obj);
-				if(!arr[index+1])
+				if(index+2>arr.length)
 					write(res);
 			});
 		}//end if(!error)
