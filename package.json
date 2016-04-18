@@ -12,6 +12,7 @@
   },
   "author": "Victor Tang",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "cheerio": "latest",
     "express": "latest",
     "express-handlebars": "^3.0.0",

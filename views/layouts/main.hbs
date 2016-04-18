@@ -4,8 +4,18 @@
 <head>
     <meta charset="utf-8">
     <title>Notes</title>
+	<link rel="stylesheet" href="css/index.css"> <!-- load styles -->
+	<script src="app.js"></script> <!-- load app -->
 </head>
 <body>
+	<h1>Vtange's Notes</h1>
+	<form action="/update" method="post">
+		<div class="form-group">
+			<input type="text" class="searchr" name="repo" placeholder="Repo Name">
+			<button type="submit">Get Notes</button>
+		</div>
+	</form>
+	<hr>
 
     {{{body}}}
 

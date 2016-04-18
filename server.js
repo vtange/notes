@@ -1,14 +1,18 @@
 var express = require('express');
-var fs = require('fs');
 var exphbs = require('express-handlebars');
+var bodyParser   = require('body-parser');
 var request = require('request');
-//var cheerio = require('cheerio');
+var fs = require('fs');
 var port     = process.env.PORT || 8080;
 var app     = express();
-var stuff   = require('./public/output.js')();
+//var cheerio = require('cheerio');
+var stuff   = require('./public/output.js');
 var auth	= require('./config/auth.js');
 var showdown  = require('showdown'),
     converter = new showdown.Converter()
+
+app.use(bodyParser.urlencoded({ extended: false }));    // parse application/x-www-form-urlencoded
+app.use(bodyParser.json());    // parse application/json
 
 var hbs = exphbs.create({
     // Specify helpers which are only registered on this instance.
@@ -21,7 +25,7 @@ var hbs = exphbs.create({
 
 // set up client files
 app.set('view engine', 'hbs');												//use handlebars
-app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));		//'hbs' engine == exphbs, whose layoutpage is 'main', extension is 'hbs'
+app.engine('hbs', exphbs({defaultLayout: 'main.hbs', extname: '.hbs'}));		//'hbs' engine == exphbs, whose layoutpage is 'main', extension is 'hbs'
 app.engine('hbs', hbs.engine);												//append helpers
 app.use(express.static(__dirname + '/public'));     // set the static files location /public/img will be /img for users
 
@@ -43,67 +47,38 @@ function write(res){
 function send(res){
 		res.render('index', {
 			data: stuff,
+			layout: 'main.hbs'
 		}); // load the index.hbs file
 }
-
-
 //updates information and send
-app.get('/update', function(req, res){
-	
-	//formData == auth (new application at github/settings > OAuth applications)
-	var getRepos = {
-	  uri: 'https://api.github.com/users/vtange/repos?per_page=99',
-	  formData: auth,
-	  headers: {
-		'User-Agent': 'vtange notes app - note collector'
-	  }
-	};
-
-	request(getRepos, function(error, response, body){
-		if(error){
-			throw error;
+app.post('/update', function(req, res){
+		var getProject = {
+		  uri: 'https://api.github.com/repos/vtange/'+req.body.repo+'/readme',
+		  formData: auth,
+		  headers: {
+			'User-Agent': 'vtange notes app - note collector',
+			'Accept': 'application/vnd.github.html'
+		  }
+		};
+		if(req.body.repo){
+			request(getProject, function(error, response, body){
+				if(!error){
+					//var $ = cheerio.load(body); // enable jQuery-style scraping
+					//push until you run out of stuff to push
+					stuff.push(body);
+					write(res);
+				}//end if(!error)
+			});//end request for data
 		}
-		var arr = JSON.parse(response.body);
-		if(arr.forEach){
-			//reset to blank data
-			stuff = [];
-			arr.forEach(function(repo, index){
-				var getProject = {
-				  uri: 'https://api.github.com/repos/vtange/'+repo.name+'/readme',
-				  formData: auth,
-				  headers: {
-					'User-Agent': 'vtange notes app - note collector',
-					'Accept': 'application/vnd.github.html'
-				  }
-				};
+	else{
+		throw 'req.body.repo is falsey';
+	}
 
-				request(getProject, function(error, response, body){
-					if(!error){
-						//var $ = cheerio.load(body); // enable jQuery-style scraping
-						//push until you run out of stuff to push
-						if(/takeaway/gi.test(body))
-							stuff.push(body);
-						if(!(arr[index+1])){
-							write(res);
-						}
-					}//end if(!error)
-				});//end request for data
-
-			});//end forEach repo
-		}
-		else{
-			console.log("error getting Github data, might be over API limit.");
-			send(res);
-		}
-    });//end request for repos
-	
 });
 
 //simply send information
 app.get('/', function(req, res){
-		//read and get file data
-		stuff   = require('./public/output.js')();
-		//send
+		//send data
 		send(res);
 });
 
