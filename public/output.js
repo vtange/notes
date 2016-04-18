@@ -1,224 +1,298 @@
 exports = module.exports = function(){return [
     {
-        "title": "albumland"
+        "title": "albumland",
+        "hidden": false
     },
     {
-        "title": "Algos"
+        "title": "Algos",
+        "hidden": false
     },
     {
-        "title": "arch-design"
+        "title": "arch-design",
+        "hidden": false
     },
     {
-        "title": "basic-login-bar"
+        "title": "basic-login-bar",
+        "hidden": false
     },
     {
-        "title": "basic-login-bar-spa"
+        "title": "basic-login-bar-spa",
+        "hidden": false
     },
     {
-        "title": "Boilerplates"
+        "title": "Boilerplates",
+        "hidden": false
     },
     {
-        "title": "bookmon"
+        "title": "bookmon",
+        "hidden": false
     },
     {
-        "title": "bootstrap-map-js"
+        "title": "bootstrap-map-js",
+        "hidden": false
     },
     {
-        "title": "brackets-bootstrap3-snippets"
+        "title": "brackets-bootstrap3-snippets",
+        "hidden": false
     },
     {
-        "title": "calculator"
+        "title": "calculator",
+        "hidden": false
     },
     {
-        "title": "cartodb-pluto"
+        "title": "cartodb-pluto",
+        "hidden": false
     },
     {
-        "title": "clementinejs-fcc"
+        "title": "clementinejs-fcc",
+        "hidden": false
     },
     {
-        "title": "CodeRefresh"
+        "title": "CodeRefresh",
+        "hidden": false
     },
     {
-        "title": "crelly-slider"
+        "title": "crelly-slider",
+        "hidden": false
     },
     {
-        "title": "dragDrop"
+        "title": "dragDrop",
+        "hidden": false
     },
     {
-        "title": "EnglishTranslation"
+        "title": "EnglishTranslation",
+        "hidden": false
     },
     {
-        "title": "express-handlebars"
+        "title": "express-handlebars",
+        "hidden": false
     },
     {
-        "title": "filescanner"
+        "title": "filescanner",
+        "hidden": false
     },
     {
-        "title": "firstmap"
+        "title": "firstmap",
+        "hidden": false
     },
     {
-        "title": "firstmocha"
+        "title": "firstmocha",
+        "hidden": false
     },
     {
-        "title": "flux-angular"
+        "title": "flux-angular",
+        "hidden": false
     },
     {
-        "title": "goojs"
+        "title": "goojs",
+        "hidden": false
     },
     {
-        "title": "hackathon-starter"
+        "title": "hackathon-starter",
+        "hidden": false
     },
     {
-        "title": "headerparser"
+        "title": "headerparser",
+        "hidden": false
     },
     {
-        "title": "httpGet"
+        "title": "httpGet",
+        "hidden": false
     },
     {
-        "title": "ign"
+        "title": "ign",
+        "hidden": false
     },
     {
-        "title": "imgsearcher"
+        "title": "imgsearcher",
+        "hidden": false
     },
     {
-        "title": "iomrascalai"
+        "title": "iomrascalai",
+        "hidden": false
     },
     {
-        "title": "javascript-koans"
+        "title": "javascript-koans",
+        "hidden": false
     },
     {
-        "title": "js-expression-eval"
+        "title": "js-expression-eval",
+        "hidden": false
     },
     {
-        "title": "js_designpatterns"
+        "title": "js_designpatterns",
+        "hidden": false
     },
     {
-        "title": "LandingPage"
+        "title": "LandingPage",
+        "hidden": false
     },
     {
-        "title": "leaflet.workspace"
+        "title": "leaflet.workspace",
+        "hidden": false
     },
     {
-        "title": "loginV1"
+        "title": "loginV1",
+        "hidden": false
     },
     {
-        "title": "loginV2"
+        "title": "loginV2",
+        "hidden": false
     },
     {
-        "title": "loginV3"
+        "title": "loginV3",
+        "hidden": false
     },
     {
-        "title": "loginV4"
+        "title": "loginV4",
+        "hidden": false
     },
     {
-        "title": "masteringnode"
+        "title": "masteringnode",
+        "hidden": false
     },
     {
-        "title": "MEAN-basic"
+        "title": "MEAN-basic",
+        "hidden": false
     },
     {
-        "title": "multifxvst"
+        "title": "multifxvst",
+        "hidden": false
     },
     {
-        "title": "news-gallery"
+        "title": "news-gallery",
+        "hidden": false
     },
     {
-        "title": "nightlifemap"
+        "title": "nightlifemap",
+        "hidden": false
     },
     {
-        "title": "notes"
+        "title": "notes",
+        "hidden": false
     },
     {
-        "title": "nrg.js"
+        "title": "nrg.js",
+        "hidden": false
     },
     {
-        "title": "palace"
+        "title": "palace",
+        "hidden": false
     },
     {
-        "title": "playing-cards"
+        "title": "playing-cards",
+        "hidden": false
     },
     {
-        "title": "polland"
+        "title": "polland",
+        "hidden": false
     },
     {
-        "title": "pomodoro"
+        "title": "pomodoro",
+        "hidden": false
     },
     {
-        "title": "Portfolio"
+        "title": "Portfolio",
+        "hidden": false
     },
     {
-        "title": "Portfolio2"
+        "title": "Portfolio2",
+        "hidden": false
     },
     {
-        "title": "Portfolio3"
+        "title": "Portfolio3",
+        "hidden": false
     },
     {
-        "title": "react-first"
+        "title": "react-first",
+        "hidden": false
     },
     {
-        "title": "react-shopcart"
+        "title": "react-shopcart",
+        "hidden": false
     },
     {
-        "title": "react-way-getting-started"
+        "title": "react-way-getting-started",
+        "hidden": false
     },
     {
-        "title": "really-basic-login-bar"
+        "title": "really-basic-login-bar",
+        "hidden": false
     },
     {
-        "title": "rewrite-underscore-library"
+        "title": "rewrite-underscore-library",
+        "hidden": false
     },
     {
-        "title": "shapesmith.next"
+        "title": "shapesmith.next",
+        "hidden": false
     },
     {
-        "title": "showcase-maps"
+        "title": "showcase-maps",
+        "hidden": false
     },
     {
-        "title": "simon"
+        "title": "simon",
+        "hidden": false
     },
     {
-        "title": "stockcandler"
+        "title": "stockcandler",
+        "hidden": false
     },
     {
-        "title": "test-first-ruby"
+        "title": "test-first-ruby",
+        "hidden": false
     },
     {
-        "title": "tictactoe"
+        "title": "tictactoe",
+        "hidden": false
     },
     {
-        "title": "timestamper"
+        "title": "timestamper",
+        "hidden": false
     },
     {
-        "title": "TreeOfSaviorFormatter"
+        "title": "TreeOfSaviorFormatter",
+        "hidden": false
     },
     {
-        "title": "TreeOfSaviorMapdex"
+        "title": "TreeOfSaviorMapdex",
+        "hidden": false
     },
     {
-        "title": "turf"
+        "title": "turf",
+        "hidden": false
     },
     {
-        "title": "twitch"
+        "title": "twitch",
+        "hidden": false
     },
     {
-        "title": "txtUpload"
+        "title": "txtUpload",
+        "hidden": false
     },
     {
-        "title": "urlshortener"
+        "title": "urlshortener",
+        "hidden": false
     },
     {
-        "title": "vst-io"
+        "title": "vst-io",
+        "hidden": false
     },
     {
-        "title": "waifu2x"
+        "title": "waifu2x",
+        "hidden": false
     },
     {
-        "title": "weather"
+        "title": "weather",
+        "hidden": false
     },
     {
-        "title": "wikisearch"
+        "title": "wikisearch",
+        "hidden": false
     },
     {
-        "title": "wintersmith-practice"
+        "title": "wintersmith-practice",
+        "hidden": false
     }
 ]}

@@ -29,6 +29,17 @@ app.engine('hbs', exphbs({defaultLayout: 'main.hbs', extname: '.hbs'}));		//'hbs
 app.engine('hbs', hbs.engine);												//append helpers
 app.use(express.static(__dirname + '/public'));     // set the static files location /public/img will be /img for users
 
+Array.prototype.getFirstIndexThat = function(test) {
+
+    for(var i = 0; i < this.length; i++)
+    {
+        if (test(this[i])){
+			return this[i];
+		}
+    }
+	return null;
+}
+
 function write(res){
 		// To write to the system we will use the built in 'fs' library.
 		// In this example we will pass 3 parameters to the writeFile function
@@ -52,7 +63,6 @@ function send(res){
 }
 //updates information and send
 app.post('/update', function(req, res){
-		console.log(req.body);
 		var getProject = {
 		  uri: 'https://api.github.com/repos/vtange/'+req.body.repo+'/readme',
 		  formData: auth,
@@ -66,6 +76,7 @@ app.post('/update', function(req, res){
 				if(!error){
 					var obj = {
 						title:req.body.repo,
+						hidden:false,
 						html:body
 					}
 					stuff.push(obj);
@@ -79,6 +90,21 @@ app.post('/update', function(req, res){
 
 });
 
+//updates information and send
+app.post('/hide', function(req, res){
+	if(req.body.repo){
+		var obj = stuff.getFirstIndexThat(function(repo){
+			return repo.title = req.body.repo;
+		});
+		if(obj.hidden){
+			obj.hidden = false;
+		}
+		else{
+			obj.hidden = true;
+		}
+		write(res);
+	}
+});
 app.get("/reset", function(req, res){
 	//formData == auth (new application at github/settings > OAuth applications)
 	var getRepos = {
@@ -94,7 +120,8 @@ app.get("/reset", function(req, res){
 			var arr = JSON.parse(body);
 			arr.forEach(function(repo,index){
 				var obj = {
-					title:repo.name
+					title:repo.name,
+					hidden:false
 				}
 				stuff.push(obj);
 				if(!arr[index+1])

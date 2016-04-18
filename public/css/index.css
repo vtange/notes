@@ -32,6 +32,10 @@ body:after{
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.vert-list{
+	display: flex;
+	flex-direction: column;
+}
 /* BASICS ^ */
 /* RESET */
 pre, code{
@@ -57,13 +61,36 @@ pre, .markdown-body, .repo-title{
 	flex-direction: row;
 	width:30%;
 }
-.repo-title > form{
+.repo-title > div{
 	position: absolute;
 	right:0;
+	top:0;
+	height:100%;
+}
+.repo-title form{
+	height:50%;
+	min-width: 50px;
 }
 .repo-title button{
-	color:#333;
+	font-weight: bolder;
+	border-radius: 0;
+	padding: 0;
+	height:100%;
+	width:100%;
+}
+.update-btn{
+	color:darkgreen;
     border: 3px solid darkgreen;
+}
+.update-btn:hover{
+	background-color:#dfd;
+}
+.hide-btn{
+	color:darkred;
+    border: 3px solid darkred;
+}
+.hide-btn:hover{
+	background-color:#fdd;
 }
 /* FORM */
 .searchr {
