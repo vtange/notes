@@ -1,8 +1,11 @@
 <div id="projects">
 	{{#each data}}
             {{#unless this.html}}
-				<div>
-					{{{ this.title }}}
+				<div class="repo-title">
+					<b>{{{ this.title }}}</b>
+					<form action="/update" method="post">
+						<button name="repo" value="{{this.title}}">Update</button>
+					</form>
 				</div>
             {{else}}
 				{{{ this.html }}}

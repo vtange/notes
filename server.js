@@ -52,6 +52,7 @@ function send(res){
 }
 //updates information and send
 app.post('/update', function(req, res){
+		console.log(req.body);
 		var getProject = {
 		  uri: 'https://api.github.com/repos/vtange/'+req.body.repo+'/readme',
 		  formData: auth,
