@@ -15,19 +15,18 @@ var showdown  = require('showdown'),
 app.use(bodyParser.urlencoded({ extended: false }));    // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());    // parse application/json
 
+// set up client files
 var hbs = exphbs.create({
-    // Specify helpers which are only registered on this instance.
+    defaultLayout: 'main.hbs',
+	extname: '.hbs',
     helpers: {
 		marked: function(text){
 			return new hbs.handlebars.SafeString(converter.makeHtml(text));
 		}
     }
 });
-
-// set up client files
+app.engine('hbs', hbs.engine);												//set handlebars engine
 app.set('view engine', 'hbs');												//use handlebars
-app.engine('hbs', exphbs({defaultLayout: 'main.hbs', extname: '.hbs'}));		//'hbs' engine == exphbs, whose layoutpage is 'main', extension is 'hbs'
-app.engine('hbs', hbs.engine);												//append helpers
 app.use(express.static(__dirname + '/public'));     // set the static files location /public/img will be /img for users
 
 Array.prototype.getFirstIndexThat = function(test) {
@@ -58,9 +57,10 @@ function write(res){
 }
 function send(res){
 		res.render('index', {
-			data: stuff,
-			layout: 'main.hbs'
-		}); // load the index.hbs file
+			data: stuff
+			//custom layout:
+			//layout: 'main.hbs'
+		});
 }
 //gets readme info
 function getREADME(repo_name, promise){
